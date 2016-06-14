@@ -5,5 +5,4 @@ GOTO:EOF
 
 :SET_SCRIPTS_ENV
 set W_SCRIPTS=1
-set path=%CD%;%PATH%
-echo path set
+set path=w:\scripts;%PATH%

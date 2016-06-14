@@ -1,12 +1,12 @@
 #!/bin/sh
 
-cd work
+cd ../git
 
 LOCAL=$(git rev-parse @)
 REMOTE=$(git rev-parse @{u})
 BASE=$(git merge-base @ @{u})
 
-cd ..
+cd ../scripts
 
 if [ $LOCAL = $REMOTE ]; then
     echo "Up-to-date" > test.tmp

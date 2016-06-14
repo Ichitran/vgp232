@@ -1,0 +1,38 @@
+<project name="Build Brain" default="brain">
+	<property name="errorcode" value="True"/>
+	<property name="x" value="True"/>
+	<property name="configuration" value="release"/>
+	<target name="brain">
+		<trycatch>
+			<try>
+			 <echo message="Start building MyApplication.."/>
+			 <call target="CheckGit"/>
+			</try>
+			<catch>
+			 <echo message="Build MyApp.sln is failed"/>
+			 <fail/>
+			</catch>
+		</trycatch>
+	</target>
+	<target name="CheckGit">
+		<exec program="test.bat" failonerror="false" resultproperty="errorcode" />
+		<if test="${int::parse('0' + errorcode) != 0}">
+		 <echo>Do the pull, then the build</echo>
+		 <call target="GitPull" />
+		 <call target="Build" />
+		</if>
+		<if test="${int::parse('0' + errorcode) == 0}">
+		 <echo>Nothing to do</echo>
+		</if>
+	</target>
+	
+	<target name="GitPull">
+	<exec program="cleanbuild.bat" failonerror="false" resultproperty="errorcode" />
+		<!--Fill in git pull. probably by calling a batch file to do the pull-->
+	</target>
+	
+	<target name="Build">
+	<exec program="cleanbuild.bat" failonerror="false" resultproperty="errorcode" />
+		<!--build the program, using the .build file we made a few classes ago-->
+	</target>
+</project>
